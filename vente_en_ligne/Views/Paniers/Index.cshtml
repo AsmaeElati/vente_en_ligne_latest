@@ -1,0 +1,96 @@
+﻿@model IEnumerable<vente_en_ligne.Models.Panier>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+<style>
+    body {
+        background-color: #AED6F1;
+    }
+
+    .text-center {
+        background-color: white; /* Set background color for the form */
+        padding: 20px; /* Add padding to the form */
+        border-radius: 10px; /* Add border radius for a rounded appearance */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+        margin: 20px auto; /* Center the form */
+        max-width: 600px; /* Set a maximum width for the form */
+    }
+
+    table {
+        width: 100%;
+        margin-top: 20px; /* Add some space between the form and the table */
+    }
+</style>
+
+<div class="text-center" style="background:#6193d9;color:white">
+    <h2>Shopping Cart</h2>
+</div>
+
+<form asp-action="YourAction" asp-controller="YourController" method="post">
+    <div class="text-center">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IDPro)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Quantité)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Total)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IDPro)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantité)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Total)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="text-center">
+            <label id="totalLabel" style="margin-right:auto%">Somme totale : </label>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    // Récupérez toutes les cellules de la colonne "Total"
+                    var totalCells = document.querySelectorAll('td:nth-child(3)'); // 3 correspond à la colonne "Total"
+
+                    // Convertissez les valeurs des cellules en nombres et calculez la somme
+                    var totalSum = Array.from(totalCells).reduce(function (sum, cell) {
+                        return sum + parseFloat(cell.textContent || cell.innerText);
+                    }, 0);
+
+                    // Affichez la somme dans le label
+                    document.getElementById('totalLabel').innerText += totalSum.toFixed(2); // Formatez la somme selon vos besoins
+                });
+            </script>
+            <button type="submit" formaction="@Url.Action("Authent", "Utilisateurs")" class="btn btn-primary" style="background:darkred;color:white">Checkout</button>
+        </div>
+    </div>
+
+</form>

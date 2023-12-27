@@ -1,0 +1,43 @@
+﻿@model vente_en_ligne.Models.Utilisateur
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<link type="text/css" rel="stylesheet" href="/css/CreateU.css" />
+<div class="alert alert-danger" style="    background: rgba(0,0,0,.5);color:red;font-weight: bold;
+;display: @(!string.IsNullOrEmpty(ViewData["ErrorMessage"] as string) ? "block" : "none");" id="errorMessage">
+    @ViewData["ErrorMessage"]
+</div>
+<div class="login-box">
+    <h2 style="color:red;">Become Client</h2>
+
+    <form asp-action="Authent" method="post">
+        <div class="user-box">
+
+            <label> Email</label>
+            <br>
+            <br>
+            <input asp-for="Email" class="form-control" required />
+
+            <div class="align">
+            </div>
+            <button type="submit" style="background:darkred; color:white; font-weight: bold;">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Submit
+            </button>
+
+            <button style="background:darkred; color:white; font-weight: bold;margin-left:50px">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <a href="@Url.Action("Create", "Utilisateurs")" style="color:white ;font-weight: bold">Create User</a>
+            </button>
+        </div>
+    </form>
+
+</div>
